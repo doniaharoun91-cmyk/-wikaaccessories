@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WIKA ACCESSORIES | Shop Online</title>
+<style>
+:root{
+  --pink:#e8a8b8;--cream:#fff8f2;--gold:#b38a48;
+  --dark:#382a2e;--white:#fff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--cream);color:var(--dark);
+  font-family:Arial,Tahoma,sans-serif
+}
+header{
+  background:white;padding:15px 5%;display:flex;
+  justify-content:space-between;align-items:center;gap:12px;
+  position:sticky;top:0;z-index:10;
+  box-shadow:0 2px 12px #00000008
+}
+.logo{font-size:20px;font-weight:bold;letter-spacing:1px;color:#a95f78}
+button,.btn{
+  border:0;border-radius:25px;padding:12px 17px;
+  background:var(--pink);color:white;font-weight:bold;
+  cursor:pointer;text-decoration:none;display:inline-block
+}
+.hero{
+  text-align:center;padding:65px 18px;
+  background:linear-gradient(135deg,#f8dfe5,#fff8f2,#f1dfc1)
+}
+.hero h1{font-size:clamp(30px,7vw,48px);margin:0 0 12px}
+.hero p{line-height:1.9}
+.section{max-width:1200px;margin:auto;padding:32px 5%}
+.section h2{text-align:center;margin-bottom:24px}
+.products{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px
+}
+.product{
+  background:white;border-radius:16px;overflow:hidden;
+  border:1px solid #f1e1e3;box-shadow:0 4px 15px #00000007
+}
+.product img{
+  width:100%;height:180px;object-fit:cover;display:block;
+  background:#f7e9eb
+}
+.info{padding:13px}
+.info h3{font-size:16px;margin:0 0 8px}
+.info p{font-size:13px;color:#806e71;line-height:1.7}
+.price{font-weight:bold;color:#a35e75;margin:12px 0}
+.info button{width:100%;background:var(--dark);border-radius:10px}
+.panel{background:white;padding:18px;border-radius:16px;margin-top:14px}
+.cart-item{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;padding:12px 0;border-bottom:1px solid #eee;
+  font-size:14px
+}
+.qty button{padding:5px 10px;border-radius:7px;margin:2px}
+.total{font-size:20px;font-weight:bold;margin:18px 0}
+label{display:block;font-size:14px;font-weight:bold;margin-top:8px}
+input,select,textarea{
+  width:100%;padding:12px;margin:7px 0 12px;
+  border:1px solid #e7d6d9;border-radius:9px;
+  font:inherit;background:#fffdfb
+}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.checkout{width:100%;background:#218b52;margin-top:8px}
+.small{font-size:12px;color:#806e71;line-height:1.8}
+footer{
+  text-align:center;background:var(--dark);color:white;
+  padding:28px 15px;line-height:2
+}
+footer a{color:#f3c5d2;margin:0 8px}
+.floating{
+  position:fixed;bottom:18px;left:16px;background:#16834b;
+  color:white;text-decoration:none;padding:13px 17px;
+  border-radius:30px;z-index:20
+}
+@media(min-width:700px){
+  .products{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+  .product img{height:230px}
+  .hero{padding:85px 20px}
+}
+@media(max-width:380px){
+  .form-grid{grid-template-columns:1fr}
+  .logo{font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">WIKA ACCESSORIES</div>
+  <button onclick="document.getElementById('cart').scrollIntoView()">
+    🛍️ السلة (<span id="cartCount">0</span>)
+  </button>
+</header>
+
+<section class="hero">
+  <h1>Little Details, Big Elegance ✨</h1>
+  <p>اختاري القطع اللي بتحبيها، وكمّلي إطلالتك بلمسة مميزة.</p>
+  <a class="btn" href="#shop">Shop Now | تسوّقي الآن</a>
+</section>
+
+<section class="section" id="shop">
+  <h2>Our Collection | مجموعتنا</h2>
+  <div class="products" id="products"></div>
+</section>
+
+<section class="section" id="cart">
+  <h2>Your Shopping Bag | سلة مشترياتك</h2>
+  <div class="panel">
+    <div id="cartItems">السلة فارغة حاليًا 💗</div>
+    <div class="total">الإجمالي: <span id="total">0</span> جنيه</div>
+    <p class="small">تكلفة الشحن تُحدد عند تأكيد الطلب.</p>
+    <button onclick="document.getElementById('checkout').scrollIntoView()">
+      متابعة الطلب
+    </button>
+  </div>
+</section>
+
+<section class="section" id="checkout">
+  <h2>Delivery Details | بيانات العميل</h2>
+  <div class="panel">
+    <form id="orderForm">
+      <label for="customer">الاسم بالكامل *</label>
+      <input id="customer" required autocomplete="name"
+             placeholder="اكتبي اسمك بالكامل">
+
+      <div class="form-grid">
+        <div>
+          <label for="phone">رقم الموبايل *</label>
+          <input id="phone" type="tel" required autocomplete="tel"
+                 placeholder="01xxxxxxxxx">
+        </div>
+        <div>
+          <label for="altPhone">رقم بديل</label>
+          <input id="altPhone" type="tel" placeholder="اختياري">
+        </div>
+      </div>
+
+      <label for="governorate">المحافظة *</label>
+      <select id="governorate" required>
+        <option value="">اختاري المحافظة</option>
+        <option>القاهرة</option><option>الجيزة</option>
+        <option>الإسكندرية</option><option>القليوبية</option>
+        <option>الشرقية</option><option>الدقهلية</option>
+        <option>الغربية</option><option>المنوفية</option>
+        <option>البحيرة</option><option>كفر الشيخ</option>
+        <option>دمياط</option><option>بورسعيد</option>
+        <option>الإسماعيلية</option><option>السويس</option>
+        <option>الفيوم</option><option>بني سويف</option>
+        <option>المنيا</option><option>أسيوط</option>
+        <option>سوهاج</option><option>قنا</option>
+        <option>الأقصر</option><option>أسوان</option>
+        <option>البحر الأحمر</option><option>مطروح</option>
+        <option>الوادي الجديد</option><option>شمال سيناء</option>
+        <option>جنوب سيناء</option>
+      </select>
+
+      <label for="city">المدينة / المنطقة *</label>
+      <input id="city" required placeholder="المدينة أو المنطقة">
+
+      <label for="street">اسم الشارع *</label>
+      <input id="street" required placeholder="اسم الشارع">
+
+      <div class="form-grid">
+        <div>
+          <label for="building">رقم العمارة</label>
+          <input id="building" placeholder="رقم العمارة">
+        </div>
+        <div>
+          <label for="floor">الدور والشقة</label>
+          <input id="floor" placeholder="الدور ورقم الشقة">
+        </div>
+      </div>
+
+      <label for="landmark">علامة مميزة</label>
+      <input id="landmark" placeholder="بجوار إيه؟">
+
+      <label for="notes">ملاحظات إضافية</label>
+      <textarea id="notes" rows="3"
+                placeholder="أي تفاصيل خاصة بالطلب أو التوصيل"></textarea>
+
+      <button class="checkout" type="submit">
+        إتمام الطلب عبر WhatsApp 💚
+      </button>
+      <p class="small">
+        هتفتح رسالة فيها المنتجات وبيانات التوصيل على واتساب.
+        الطلب لا يُرسل إلا بعد ما تضغطي إرسال بنفسك.
+      </p>
+    </form>
+  </div>
+</section>
+
+<section class="section">
+  <div class="panel" style="text-align:center">
+    <h2>Need Help? | محتاجة مساعدة؟</h2>
+    <p>تواصلي معانا للاستفسار عن القطع وتفاصيلها.</p>
+    <a class="btn" href="https://wa.me/201035049581" target="_blank"
+       rel="noopener">تواصلي معنا على واتساب</a>
+  </div>
+</section>
+
+<footer>
+  <strong>WIKA ACCESSORIES</strong>
+  <div>Little things make you shine ✨</div>
+  <div>
+    <a href="https://www.instagram.com/wikaaccessories/"
+       target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.tiktok.com/@wika.accessories"
+       target="_blank" rel="noopener">TikTok</a>
+    <a href="https://wa.me/201035049581"
+       target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+  <small>© WIKA ACCESSORIES</small>
+</footer>
+
+<a class="floating" href="https://wa.me/201035049581"
+   target="_blank" rel="noopener">WhatsApp 💬</a>
+
+<script>
+const products = [
+  {
+    id:1,
+    name:"Golden Jewelry Set",
+    description:"طقم إكسسوارات ذهبي أنيق",
+    price:150,
+    image:"https://alvorajewelry.com/cdn/shop/collections/waterproof-1730856.webp?v=1767930859&width=1500"
+  },
+  {
+    id:2,
+    name:"Heart Jewelry Set",
+    description:"طقم رقيق بتفاصيل القلوب",
+    price:110,
+    image:"https://palmonas.com/cdn/shop/files/shopify_56_c8922fa8-b5b0-4c60-af92-3e92118d5af7.jpg?v=1775541156"
+  },
+  {
+    id:3,
+    name:"Golden Accessories",
+    description:"إكسسوارات ذهبية بستايل عصري",
+    price:90,
+    image:"https://www.purpuls.com/cdn/shop/collections/pomelli-image_-_2026-03-29T214054.776.webp?v=1775085458&width=800"
+  },
+  {
+    id:4,
+    name:"Elegant Jewelry",
+    description:"قطع أنيقة لإطلالتك اليومية",
+    price:75,
+    image:"https://keviastyle.com/cdn/shop/files/Curated_Jewelry_Bundle_Final_Product_Images-2-Bold_Beautiful_Bundle.jpg?v=1776118444"
+  }
+];
+
+const cart = {};
+const productsBox = document.getElementById("products");
+
+products.forEach(p => {
+  const card = document.createElement("article");
+  card.className = "product";
+
+  const img = document.createElement("img");
+  img.src = p.image;
+  img.alt = p.name;
+  img.loading = "lazy";
+  img.onerror = () => {
+    img.onerror = null;
+    img.src = "https://placehold.co/600x500/f8dfe5/805565?text=WIKA+ACCESSORIES";
+  };
+
+  const info = document.createElement("div");
+  info.className = "info";
+
+  const title = document.createElement("h3");
+  title.textContent = p.name;
+
+  const description = document.createElement("p");
+  description.textContent = p.description;
+
+  const price = document.createElement("div");
+  price.className = "price";
+  price.textContent = p.price + " EGP";
+
+  const add = document.createElement("button");
+  add.textContent = "أضيفي للسلة +";
+  add.addEventListener("click", () => {
+    cart[p.id] = (cart[p.id] || 0) + 1;
+    renderCart();
+  });
+
+  info.append(title, description, price, add);
+  card.append(img, info);
+  productsBox.append(card);
+});
+
+function renderCart(){
+  const box = document.getElementById("cartItems");
+  box.replaceChildren();
+
+  let total = 0;
+  let count = 0;
+  const ids = Object.keys(cart).filter(id => cart[id] > 0);
+
+  if (!ids.length) {
+    box.textContent = "السلة فارغة حاليًا 💗";
+  }
+
+  ids.forEach(id => {
+    const p = products.find(item => item.id === Number(id));
+    const qty = cart[id];
+    total += p.price * qty;
+    count += qty;
+
+    const row = document.createElement("div");
+    row.className = "cart-item";
+
+    const details = document.createElement("span");
+    details.textContent = `${p.name} × ${qty} — ${p.price * qty} جنيه`;
+
+    const controls = document.createElement("div");
+    controls.className = "qty";
+
+    const minus = document.createElement("button");
+    minus.textContent = "−";
+    minus.setAttribute("aria-label", "تقليل الكمية");
+    minus.onclick = () => {
+      cart[p.id]--;
+      if (cart[p.id] <= 0) delete cart[p.id];
+      renderCart();
+    };
+
+    const plus = document.createElement("button");
+    plus.textContent = "+";
+    plus.setAttribute("aria-label", "زيادة الكمية");
+    plus.onclick = () => {
+      cart[p.id]++;
+      renderCart();
+    };
+
+    controls.append(minus, plus);
+    row.append(details, controls);
+    box.append(row);
+  });
+
+  document.getElementById("total").textContent = total;
+  document.getElementById("cartCount").textContent = count;
+}
+
+document.getElementById("orderForm").addEventListener("submit", e => {
+  e.preventDefault();
+
+  if (!Object.keys(cart).length) {
+    alert("ضيفي منتج واحد على الأقل للسلة الأول ❤️");
+    document.getElementById("shop").scrollIntoView();
+    return;
+  }
+
+  const val = id => document.getElementById(id).value.trim();
+  const lines = [
+    "طلب جديد من WIKA ACCESSORIES",
+    "",
+    "المنتجات:"
+  ];
+
+  let total = 0;
+  Object.keys(cart).forEach(id => {
+    const p = products.find(item => item.id === Number(id));
+    lines.push(`- ${p.name} × ${cart[id]} = ${p.price * cart[id]} جنيه`);
+    total += p.price * cart[id];
+  });
+
+  lines.push(
+    "",
+    `إجمالي المنتجات: ${total} جنيه`,
+    "الشحن: يُحدد عند التأكيد",
+    "",
+    "بيانات العميل:",
+    `الاسم: ${val("customer")}`,
+    `الموبايل: ${val("phone")}`,
+    `رقم بديل: ${val("altPhone") || "غير مذكور"}`,
+    `المحافظة: ${val("governorate")}`,
+    `المدينة/المنطقة: ${val("city")}`,
+    `الشارع: ${val("street")}`,
+    `العمارة: ${val("building") || "غير مذكور"}`,
+    `الدور والشقة: ${val("floor") || "غير مذكور"}`,
+    `علامة مميزة: ${val("landmark") || "غير مذكور"}`,
+    `ملاحظات: ${val("notes") || "لا يوجد"}`
+  );
+
+  const url = "https://wa.me/201035049581?text=" +
+              encodeURIComponent(lines.join("\n"));
+  window.open(url, "_blank");
+});
+renderCart();
+</script>
+</body>
+</html>
+
